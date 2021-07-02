@@ -1,0 +1,32 @@
+version: "2"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    command: /bin/sh
+    environment:
+#      GOPATH: /go/
+      username: test
+      password: test
+    volumes:
+      - .:/go/
+    working_dir: /go/
+  
+  database:
+    image: mysql/mysql-server:8.0
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: golang
+      MYSQL_USER: golang
+      MYSQL_PASSWORD: golang
+    volumes:
+      - mysql-server-data:/var/lib/mysql
+
+volumes:
+  mysql-server-data:
+
